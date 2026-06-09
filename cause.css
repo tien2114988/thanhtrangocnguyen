@@ -1,4 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Comic+Neue:wght@700&family=Quicksand:wght@500&display=swap');
+:root {
+    --primary: #ff758c;
+    --primary-light: #ff7eb3;
+    --secondary: #ff9a9e;
+    --accent: #fad0c4;
+    --travel: #a1c4fd;
+    --bg-dark: #0f0c29;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.25);
+}
 
 * {
     margin: 0;
@@ -9,32 +18,74 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(-45deg, #ffe6e6, #e6e6ff, #ffebf5);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    font-family: 'Quicksand', sans-serif;
-    overflow-x: hidden;
-    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0f0c29;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem;
 }
 
+/* Background Blobs */
+.background-blobs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    filter: blur(100px);
+    opacity: 0.6;
+}
+
+.background-blobs::before,
+.background-blobs::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.background-blobs::before {
+    width: 600px;
+    height: 600px;
+    background: var(--primary);
+    top: -200px;
+    left: -100px;
+    animation: moveBlob1 15s infinite alternate;
+}
+
+.background-blobs::after {
+    width: 600px;
+    height: 600px;
+    background: var(--travel);
+    bottom: -200px;
+    right: -100px;
+    animation: moveBlob2 18s infinite alternate;
+}
+
+@keyframes moveBlob1 { from { transform: translate(0, 0) scale(1); } to { transform: translate(30vw, 15vh) scale(1.2); } }
+@keyframes moveBlob2 { from { transform: translate(0, 0) scale(1.2); } to { transform: translate(-30vw, -15vh) scale(1); } }
+
 .custom-cursor {
-    width: 30px;
-    height: 30px;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    mix-blend-mode: difference;
-    transition: transform 0.1s;
-}
-
-.custom-cursor svg {
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 0 5px rgba(255, 182, 193, 0.5));
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 105, 180, 0.4);
+    transition: transform 0.1s ease;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 600px;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
     position: relative;
@@ -42,100 +93,89 @@ body {
 }
 
 h1 {
-    font-family: 'Bubblegum Sans', cursive;
-    font-size: 3rem;
-    color: #ff69b4;
-    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: white;
     margin-bottom: 2rem;
-    animation: bounce 1s ease infinite;
 }
 
 .reason-card {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
     padding: 2rem;
-    margin: 1.5rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    margin: 1.5rem auto;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    max-width: 450px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-.reason-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.2);
+.reason-img-wrapper {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.reason-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
 }
 
 .reason-text {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    position: relative;
-    z-index: 2;
-}
-
-.gif-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 1;
-}
-
-.reason-card:hover .gif-overlay {
-    opacity: 1;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    padding: 0 0.5rem;
 }
 
 .shuffle-button {
-    background: linear-gradient(45deg, #ff69b4, #ff99cc);
+    background: white;
     border: none;
     border-radius: 50px;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    color: white;
-    margin: 2rem 0;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #302b63;
     cursor: pointer;
-    transition: transform 0.3s;
-    font-family: 'Comic Neue', cursive;
-    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .shuffle-button:hover {
-    transform: scale(1.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.shuffle-button.story-mode {
+    background: linear-gradient(45deg, #ff7eb3, #ff758c);
+    color: white;
+}
+
+.reason-counter {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-top: 1.5rem;
+    opacity: 0.8;
 }
 
 .floating {
-    position: fixed;
+    position: absolute;
     pointer-events: none;
-    animation: float 3s ease-in-out infinite;
-}
-
-.ending-section {
-    margin-top: 4rem;
-    padding: 2rem;
-    text-align: center;
-}
-
-.ending-text {
-    font-family: 'Bubblegum Sans', cursive;
-    font-size: 2rem;
-    color: #ff69b4;
-    margin-bottom: 2rem;
     opacity: 0;
-    transform: translateY(20px);
-}
-
-.teddy-hug {
-    width: 200px;
-    margin: 0 auto;
-    transform: scale(0);
 }
 
 @keyframes gradientBG {
@@ -156,8 +196,14 @@ h1 {
 
 @media (max-width: 768px) {
     h1 { font-size: 2rem; }
-    .reason-card { margin: 1rem; }
+    .reason-card { margin: 1rem 0.5rem; padding: 1.5rem; }
     .reason-text { font-size: 1rem; }
+    body { padding: 1rem; }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 1.5rem; }
+    .shuffle-button { padding: 0.8rem 1.5rem; font-size: 1rem; }
 }
 .shuffle-button {
     background: linear-gradient(45deg, #ff69b4, #ff99cc);

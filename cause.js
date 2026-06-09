@@ -1,24 +1,29 @@
  // Reasons database
  const reasons = [
     { 
-        text: "You’re such a kind and wonderful person, and I feel lucky to share such a good bond with you. 💖", 
-        emoji: "🌟",
-        gif: "gif1.gif"
+        text: "Chúc Thảo càng ngày càng xinh đẹp nè ✨", 
+        emoji: "💖",
+        image: "pt1.jpg"
     },
     { 
-        text: "May your day be filled with love, laughter, and endless joy. 🌸 ", 
-        emoji: "💗",
-        gif: "gif2.gif"
+        text: "Chúc Thảo thuận lợi trong mọi việc 🚀", 
+        emoji: "🍀",
+        image: "pt2.jpg"
     },
     { 
-        text: "Wishing you success, happiness, and everything your heart desires. ✨ ", 
-        emoji: "💕",
-        gif: "gif1.gif"
+        text: "Chúc Thảo thật nhiều sức khoẻ 💪", 
+        emoji: "🌸",
+        image: "pt3.jpg"
     },
     { 
-        text: "Stay the amazing girl you are—always spreading positivity around. Have the happiest year ahead! 🥳 ", 
-        emoji: "🌟",
-        gif: "gif2.gif"
+        text: "Chúc Thảo luôn luôn vui vẻ hạnh phúc 😊", 
+        emoji: "🌈",
+        image: "pt4.jpg"
+    },
+    { 
+        text: "Chúc Thảo tất cả ❤️", 
+        emoji: "🎁",
+        image: "pt5.jpg"
     }
 ];
 
@@ -29,27 +34,28 @@ const shuffleButton = document.querySelector('.shuffle-button');
 const reasonCounter = document.querySelector('.reason-counter');
 let isTransitioning = false;
 
-// Create reason card with gif
+// Create reason card with personal photo
 function createReasonCard(reason) {
     const card = document.createElement('div');
     card.className = 'reason-card';
+    
+    const imgWrapper = document.createElement('div');
+    imgWrapper.className = 'reason-img-wrapper';
+    imgWrapper.innerHTML = `<img src="${reason.image}" alt="Phương Thảo" class="reason-img">`;
     
     const text = document.createElement('div');
     text.className = 'reason-text';
     text.innerHTML = `${reason.emoji} ${reason.text}`;
     
-    const gifOverlay = document.createElement('div');
-    gifOverlay.className = 'gif-overlay';
-    gifOverlay.innerHTML = `<img src="${reason.gif}" alt="Friendship Memory">`;
-    
+    card.appendChild(imgWrapper);
     card.appendChild(text);
-    card.appendChild(gifOverlay);
     
     gsap.from(card, {
         opacity: 0,
         y: 50,
-        duration: 0.5,
-        ease: "back.out"
+        scale: 0.9,
+        duration: 0.6,
+        ease: "back.out(1.7)"
     });
 
     return card;
@@ -61,51 +67,64 @@ function displayNewReason() {
     isTransitioning = true;
 
     if (currentReasonIndex < reasons.length) {
-        const card = createReasonCard(reasons[currentReasonIndex]);
-        reasonsContainer.appendChild(card);
-        
-        // Update counter
-        reasonCounter.textContent = `Reason ${currentReasonIndex + 1} of ${reasons.length}`;
-        
-        currentReasonIndex++;
-
-        // Check if we should transform the button
-        if (currentReasonIndex === reasons.length) {
-            gsap.to(shuffleButton, {
-                scale: 1.1,
-                duration: 0.5,
-                ease: "elastic.out",
+        // Clear previous card if it exists
+        const oldCard = reasonsContainer.querySelector('.reason-card');
+        if (oldCard) {
+            gsap.to(oldCard, {
+                opacity: 0,
+                x: -50,
+                scale: 0.8,
+                duration: 0.4,
                 onComplete: () => {
-                    shuffleButton.textContent = "Enter Our Storylane 💫";
-                    shuffleButton.classList.add('story-mode');
-                    shuffleButton.addEventListener('click', () => {
-                        gsap.to('body', {
-                            opacity: 0,
-                            duration: 1,
-                            onComplete: () => {
-                                window.location.href = 'last.html'; // Replace with the actual URL of the next page
-                            }
-                        });
-                    });
+                    oldCard.remove();
+                    showNextCard();
                 }
             });
+        } else {
+            showNextCard();
         }
 
-        // Create floating elements
-        createFloatingElement();
-        
-        setTimeout(() => {
+        function showNextCard() {
+            const card = createReasonCard(reasons[currentReasonIndex]);
+            reasonsContainer.appendChild(card);
+            
+            // Update counter
+            reasonCounter.textContent = `Lời chúc ${currentReasonIndex + 1} / ${reasons.length}`;
+            
+            currentReasonIndex++;
+
+            // Check if we should transform the button
+            if (currentReasonIndex === reasons.length) {
+                gsap.to(shuffleButton, {
+                    scale: 1.1,
+                    duration: 0.5,
+                    ease: "elastic.out",
+                    onComplete: () => {
+                        shuffleButton.textContent = "Tiếp theo 💫";
+                        shuffleButton.classList.add('story-mode');
+                    }
+                });
+            }
             isTransitioning = false;
-        }, 500);
+        }
     } else {
-        // Handle navigation to new page or section
-        window.location.href = "#storylane";
-        // Or trigger your next page functionality
+        window.location.href = 'last.html';
     }
 }
 
 // Initialize button click
 shuffleButton.addEventListener('click', () => {
+    if (shuffleButton.classList.contains('story-mode')) {
+        gsap.to('body', {
+            opacity: 0,
+            duration: 1,
+            onComplete: () => {
+                window.location.href = 'last.html';
+            }
+        });
+        return;
+    }
+
     gsap.to(shuffleButton, {
         scale: 0.9,
         duration: 0.1,
@@ -115,22 +134,24 @@ shuffleButton.addEventListener('click', () => {
     displayNewReason();
 });
 
-// Floating elements function (same as before)
+// Create floating elements
+const emojis = ['❤️', '💖', '✨', '🌸', '🎁', '✈️', '🌍', '🗺️'];
 function createFloatingElement() {
-    const elements = ['🌸', '✨', '💖', '🦋', '⭐'];
-    const element = document.createElement('div');
-    element.className = 'floating';
-    element.textContent = elements[Math.floor(Math.random() * elements.length)];
-    element.style.left = Math.random() * window.innerWidth + 'px';
-    element.style.top = Math.random() * window.innerHeight + 'px';
-    element.style.fontSize = (Math.random() * 20 + 10) + 'px';
-    document.body.appendChild(element);
+    const emoji = document.createElement('div');
+    emoji.className = 'floating';
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.left = Math.random() * 100 + 'vw';
+    emoji.style.top = '110vh';
+    emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+    document.body.appendChild(emoji);
 
-    gsap.to(element, {
-        y: -500,
-        duration: Math.random() * 10 + 10,
-        opacity: 0,
-        onComplete: () => element.remove()
+    gsap.to(emoji, {
+        y: -window.innerHeight - 200,
+        x: (Math.random() - 0.5) * 200,
+        rotation: Math.random() * 360,
+        duration: Math.random() * 3 + 4,
+        ease: "none",
+        onComplete: () => emoji.remove()
     });
 }
 

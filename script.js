@@ -1,8 +1,12 @@
 // Cursor following effect
 const cursor = document.querySelector('.cursor');
 document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    gsap.to(cursor, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.1,
+        ease: "power2.out"
+    });
 });
 
 // Typing effect for greeting
@@ -19,50 +23,71 @@ function typeGreeting() {
 }
 
 // Create floating elements
-const floatingElements = ['💖', '✨', '🌸', '💫', '💕'];
+const floatingElements = ['💖', '✨', '🌸', '💫', '💕', '💗', '⭐', '✈️', '🌍', '🗺️', '🌟'];
 function createFloating() {
     const element = document.createElement('div');
     element.className = 'floating';
     element.textContent = floatingElements[Math.floor(Math.random() * floatingElements.length)];
+    
+    const size = Math.random() * 20 + 20;
     element.style.left = Math.random() * 100 + 'vw';
-    element.style.top = Math.random() * 100 + 'vh';
-    element.style.fontSize = (Math.random() * 20 + 20) + 'px';
+    element.style.top = '110vh';
+    element.style.fontSize = size + 'px';
+    element.style.filter = `blur(${Math.random() * 2}px)`;
     document.body.appendChild(element);
 
     gsap.to(element, {
-        y: -500,
-        x: Math.random() * 100 - 50,
-        rotation: Math.random() * 360,
-        duration: Math.random() * 5 + 5,
-        opacity: 1,
-        ease: "none",
+        y: -1200,
+        x: (Math.random() - 0.5) * 300,
+        rotation: Math.random() * 720,
+        duration: Math.random() * 8 + 8,
+        opacity: Math.random() * 0.6 + 0.3,
+        ease: "power1.out",
         onComplete: () => element.remove()
     });
 }
 
 // Initialize animations
 window.addEventListener('load', () => {
-    // Title animation
-    gsap.to('h1', {
+    // Profile photo animation
+    gsap.to('.profile-container', {
         opacity: 1,
-        duration: 1,
-        y: 20,
-        ease: "bounce.out"
+        scale: 1,
+        duration: 1.2,
+        ease: "back.out(1.7)"
     });
 
-    // Button animation
+    // Title animation with bounce
+    gsap.to('.main-title', {
+        opacity: 1,
+        duration: 1.5,
+        y: 20,
+        ease: "back.out(1.7)"
+    });
+
+    // Sub-greeting animation
+    gsap.to('.sub-greeting', {
+        opacity: 1,
+        duration: 1.2,
+        y: 0,
+        delay: 0.5,
+        ease: "power2.out"
+    });
+
+    // Button animation with bounce
     gsap.to('.cta-button', {
         opacity: 1,
         duration: 1,
-        y: -20,
-        ease: "back.out"
+        y: -10,
+        delay: 1,
+        ease: "back.out(2)"
     });
 
     // Start typing effect
     typeGreeting();
 
     // Create floating elements periodically
-    setInterval(createFloating, 1000);
+    setInterval(createFloating, 800);
 });
 
 // Hover effects

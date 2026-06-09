@@ -1,3 +1,14 @@
+:root {
+    --primary: #ff758c;
+    --primary-light: #ff7eb3;
+    --secondary: #ff9a9e;
+    --accent: #fad0c4;
+    --travel: #a1c4fd;
+    --bg-dark: #0f0c29;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.25);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,77 +22,224 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(-45deg, #fee9f7, #e8f5fe, #fef2e8, #f0ffe8);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+    background: #0f0c29;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    font-family: 'Montserrat', sans-serif;
+    color: white;
     overflow: hidden;
     position: relative;
 }
 
+/* Background Blobs for Mesh Gradient Effect */
+.background-blobs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    filter: blur(100px);
+    opacity: 0.6;
+}
+
+.background-blobs::before,
+.background-blobs::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.background-blobs::before {
+    width: 600px;
+    height: 600px;
+    background: var(--primary);
+    top: -200px;
+    left: -100px;
+    animation: moveBlob1 15s infinite alternate;
+}
+
+.background-blobs::after {
+    width: 600px;
+    height: 600px;
+    background: var(--travel);
+    bottom: -200px;
+    right: -100px;
+    animation: moveBlob2 18s infinite alternate;
+}
+
+@keyframes moveBlob1 {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(30vw, 15vh) scale(1.2); }
+}
+
+@keyframes moveBlob2 {
+    from { transform: translate(0, 0) scale(1.2); }
+    to { transform: translate(-30vw, -15vh) scale(1); }
+}
+
 .cursor {
-    width: 20px;
-    height: 20px;
-    background: pink;
+    width: 10px;
+    height: 10px;
+    background: white;
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    mix-blend-mode: difference;
-    transition: transform 0.2s;
+    z-index: 9999;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 105, 180, 0.4);
+    transition: transform 0.1s ease;
 }
 
 .container {
-    text-align: center;
+    padding: 2rem;
     z-index: 1;
+    width: 100%;
+    max-width: 600px;
 }
 
-h1 {
-    font-size: 3.5rem;
-    color: #ff69b4;
-    text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.profile-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: floatProfile 6s ease-in-out infinite;
+}
+
+@keyframes floatProfile {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.main-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    line-height: 1.1;
     margin-bottom: 2rem;
+    color: white;
     opacity: 0;
 }
 
+.highlight-name {
+    font-size: 3.5rem;
+    display: inline-block;
+    white-space: nowrap;
+    background: linear-gradient(45deg, #fff, #fad0c4, #ff7eb3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.6));
+    animation: namePulse 3s ease-in-out infinite;
+}
+
+@keyframes namePulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.6)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(255, 126, 179, 0.8)); }
+}
+.sub-greeting {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--travel);
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
 .greeting {
-    font-size: 1.5rem;
-    color: #8a2be2;
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.6;
     margin-bottom: 3rem;
-    min-height: 2em;
+    min-height: 4.8em;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .cta-button {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    background: linear-gradient(45deg, #ff69b4, #ff99cc);
+    position: relative;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: white;
     border: none;
     border-radius: 50px;
-    color: white;
+    color: #302b63;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
-    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.cta-button span {
+    position: relative;
+    z-index: 2;
+}
+
+.button-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 105, 180, 0.4);
+    box-shadow: 0 0 50px 30px rgba(255, 105, 180, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    transition: all 0.5s ease;
     opacity: 0;
 }
 
 .cta-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button:hover .button-glow {
+    opacity: 1;
+    width: 100px;
+    height: 100px;
 }
 
 .floating {
     position: absolute;
     pointer-events: none;
     opacity: 0;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    z-index: 0;
 }
 
 @media (max-width: 768px) {
-    h1 { font-size: 2rem; }
-    .greeting { font-size: 1.2rem; }
-    .cta-button { font-size: 1rem; }
+    .main-title { font-size: 2rem; }
+    .highlight-name { font-size: 2.2rem; }
+    .glass-card { padding: 2rem 1.5rem; margin: 1rem; }
+    .greeting { font-size: 1rem; min-height: 5em; }
+    .cta-button { padding: 1rem 2rem; font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+    .main-title { font-size: 1.6rem; }
+    .highlight-name { font-size: 1.8rem; }
+    .glass-card { padding: 1.5rem 1rem; }
+    .greeting { font-size: 0.9rem; }
 }
