@@ -576,6 +576,8 @@ main {
 .form-group {
   text-align: left;
   margin-bottom: 1.5rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .form-group label:not(.radio-card):not(.food-card) {
@@ -591,7 +593,10 @@ main {
 
 .form-input,
 .custom-input {
+  display: block;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   padding: 0.85rem 1rem;
   border: 2px solid var(--rose-100);
   border-radius: 12px;
@@ -600,6 +605,15 @@ main {
   color: var(--text);
   background: white;
   transition: border-color 0.2s;
+}
+
+/* iOS in-app browsers give native date/time controls a wide intrinsic size.
+   Allow them to shrink to the card instead of overflowing the viewport. */
+input[type="date"].form-input,
+input[type="time"].form-input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: 100%;
 }
 
 .form-input:focus,
@@ -792,7 +806,13 @@ main {
   .gallery-grid { grid-template-columns: 1fr; }
   .gallery-item.wide { grid-column: auto; }
   .food-grid { grid-template-columns: 1fr; }
-  .invite-wrapper { padding: 2rem 1.2rem; }
+  .invite-section { padding-inline: 1rem; }
+  .invite-wrapper {
+    width: 100%;
+    min-width: 0;
+    padding: 2rem 1.2rem;
+  }
+  .step-panel { min-width: 0; }
   .confirm-row { flex-direction: column; gap: 0.2rem; }
   .confirm-value { text-align: left; }
 }
