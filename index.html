@@ -1,35 +1,254 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Em Yêu 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="cursor"></div>
-    <div class="background-blobs"></div>
-    <div class="container">
-        <div class="glass-card">
-            <div class="profile-container">
-                <img src="pt1.jpg" alt="Phương Thảo" class="profile-photo">
-            </div>
-            <h1 class="main-title">Happy Birthday <br> <span class="highlight-name">Phương Thảo 🎂</span></h1>
-            <div class="sub-greeting">New Journey, New Memories! 🌍✈️</div>
-            <div class="greeting"></div>
-            <button class="cta-button">
-                <span>Click để nhận quà từ Tiến nhennn 💕</span>
-                <div class="button-glow"></div>
-            </button>
-        </div>
-    </div>
+  <div class="hearts-bg" aria-hidden="true"></div>
 
-    <script src="script.js"></script>
-    <script src="music.js"></script>
+  <!-- Entry overlay for music -->
+  <div id="entry-overlay" class="entry-overlay">
+    <div class="entry-card">
+      <div class="entry-sparkle">✨</div>
+      <h1 class="entry-title">Happy Birthday</h1>
+      <p class="entry-sub">Anh có một món quà nhỏ dành cho em nèee...</p>
+      <button id="enter-btn" class="btn-enter">Mở quà nhen 💝</button>
+    </div>
+  </div>
+
+  <audio id="bg-music" loop preload="auto">
+    <source src="Until I Found You.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="music-toggle" class="music-toggle" aria-label="Toggle music" hidden>
+    <span class="music-icon">🎵</span>
+  </button>
+
+  <main id="main-content" hidden>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <p class="hero-tag">31 · 07 · 2026</p>
+        <h1 class="hero-title">
+          <span class="title-line">Chúc mừng</span>
+          <span class="title-line accent">sinh nhật em</span>
+        </h1>
+        <p class="hero-heart">💗</p>
+      </div>
+      <div class="hero-photos">
+        <div class="polaroid p1"><img src="i1.jpg" alt="Kỷ niệm đẹp 1"></div>
+        <div class="polaroid p2"><img src="i2.jpg" alt="Kỷ niệm đẹp 2"></div>
+        <div class="polaroid p3"><img src="i3.jpg" alt="Kỷ niệm đẹp 3"></div>
+      </div>
+      <div class="scroll-hint">
+        <span>Cuộn xuống nhen</span>
+        <div class="scroll-arrow">↓</div>
+      </div>
+    </section>
+
+    <!-- Messages -->
+    <section class="messages">
+      <div class="message-card reveal" data-delay="0">
+        <div class="card-icon">🎂</div>
+        <p>Chúc em sinh nhật vui vẻ nhen, nay anh mới biết nên hong kịp chuẩn bị chi hết, nên anh vội làm cái ni để tặng em mong em sẽ thích nó. Chúc em tuổi mới ngày càng xinh đẹp hơn nè, đậu nguyện vọng 1, gia đình hạnh phúc, luôn xinh tươi vui cười. Phải nhớ quan tâm đến bản thân, tự chăm sóc cho bản thân, quan tâm đến sức khoẻ đóo nghe hong. Lớn ròi đó chứ hong còn nhỏ nữa đauu.</p>
+      </div>
+
+      <div class="message-card reveal" data-delay="1">
+        <div class="card-icon">💌</div>
+        <p>Thiệt sự thì anh hong nói nhưng anh cảm thấy vui khi nói chuyện với em lắm á, anh hong nghĩ là sẽ có 1 ngày a gặp được người mà a có thể nói chuyện thoải mái chia sẻ đến dậy, cảm ơn em vì đã lắng nghe anh nói và chăm chút trả lời anh hen. Lần đầu anh đọc mô tả về em anh thấy bất ngờ lắm á, anh tưởng là đang tả anh hong à, đánh cầu lông, xoay rubik ròi đi dạo đồ, xong vô nói chuyện thì nói về AI ngành học ròi đủ thứ, nói cái chi a cũng cảm thấy e nói chuyện thiệt sự rất là oke luôn hihi</p>
+      </div>
+
+      <div class="message-card reveal" data-delay="2">
+        <div class="card-icon">🌸</div>
+        <p>Này là anh tự ghi hong chứ hỏng có dùng AI chi hết đó. Chơi ơi anh hong có nhiều ảnh của em nên tìm đủ nguồn luôn để lấy được nhiêu đó á. Hoi ghi nhiều quá sợ e lười đọc. Tóm lại là sinh nhật năm nay em phải đi chơi cho thật vui nhen hong, nhớ giữ gìn sức khoẻ nữa đóoo</p>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+      <h2 class="section-title reveal">Những khoảnh khắc xinh xắn của ẻm</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item reveal" data-delay="0">
+          <img src="i4.jpg" alt="Khoảnh khắc 4">
+          <figcaption>✨</figcaption>
+        </figure>
+        <figure class="gallery-item reveal" data-delay="1">
+          <img src="i5.jpg" alt="Khoảnh khắc 5">
+          <figcaption>💕</figcaption>
+        </figure>
+        <figure class="gallery-item wide reveal" data-delay="2">
+          <img src="i1.jpg" alt="Khoảnh khắc 1">
+          <figcaption>🌷</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Date invitation -->
+    <section class="invite-section">
+      <div class="invite-wrapper">
+        <div class="step-progress">
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+          <div class="step-dots">
+            <span class="dot active" data-step="1"></span>
+            <span class="dot" data-step="2"></span>
+            <span class="dot" data-step="3"></span>
+            <span class="dot" data-step="4"></span>
+            <span class="dot" data-step="5"></span>
+          </div>
+        </div>
+
+        <!-- Step 1: Ask -->
+        <div class="step-panel active" id="step-1">
+          <div class="step-icon">🌙</div>
+          <h2 class="step-title">Would you like to go for a walk with me?</h2>
+          <p class="step-desc">Just the two of us, a little stroll, and maybe some good food along the way~</p>
+          <div class="ask-zone" id="ask-zone">
+            <button class="btn-yes" id="btn-yes">Yes! 💕</button>
+            <button class="btn-no" id="btn-no">No 😢</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Location -->
+        <div class="step-panel" id="step-2">
+          <div class="step-icon">📍</div>
+          <h2 class="step-title">Where shall we meet?</h2>
+          <p class="step-desc">Pick a spot, or suggest your own favorite place</p>
+          <div class="form-group">
+            <label class="radio-card">
+              <input type="radio" name="location" value="Nguyen Hue Walking Street" checked>
+              <span class="radio-label">
+                <strong>Nguyen Hue Walking Street</strong>
+                <small>Phố đi bộ Nguyễn Huệ, Quận 1</small>
+              </span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="location" value="custom">
+              <span class="radio-label">
+                <strong>Somewhere else</strong>
+                <small>I'll type my own place</small>
+              </span>
+            </label>
+            <input type="text" id="custom-location" class="custom-input" placeholder="Enter your preferred location..." hidden>
+          </div>
+          <button class="btn-next" data-next="3">Continue →</button>
+        </div>
+
+        <!-- Step 3: Time -->
+        <div class="step-panel" id="step-3">
+          <div class="step-icon">🕐</div>
+          <h2 class="step-title">When works for you?</h2>
+          <p class="step-desc">Choose a date and time that's perfect for you</p>
+          <div class="form-group">
+            <label for="date-input">Date</label>
+            <input type="date" id="date-input" class="form-input" required>
+            <label for="time-input">Time</label>
+            <input type="time" id="time-input" class="form-input" required>
+          </div>
+          <div class="btn-row">
+            <button class="btn-back" data-back="2">← Back</button>
+            <button class="btn-next" data-next="4">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Food -->
+        <div class="step-panel" id="step-4">
+          <div class="step-icon">🍜</div>
+          <h2 class="step-title">What are you craving?</h2>
+          <p class="step-desc">Pick something yummy — or surprise me!</p>
+          <div class="food-grid">
+            <label class="food-card">
+              <input type="radio" name="food" value="Street food" checked>
+              <span>🍜 Street food</span>
+            </label>
+            <label class="food-card">
+              <input type="radio" name="food" value="Hotpot">
+              <span>🫕 Hotpot</span>
+            </label>
+            <label class="food-card">
+              <input type="radio" name="food" value="BBQ & skewers">
+              <span>🍢 BBQ & skewers</span>
+            </label>
+            <label class="food-card">
+              <input type="radio" name="food" value="Jollibee">
+              <span>🍗 Jollibee</span>
+            </label>
+            <label class="food-card">
+              <input type="radio" name="food" value="Dessert & boba">
+              <span>🧋 Dessert & boba</span>
+            </label>
+            <label class="food-card">
+              <input type="radio" name="food" value="Surprise me!">
+              <span>🎁 Surprise me!</span>
+            </label>
+          </div>
+          <div class="btn-row">
+            <button class="btn-back" data-back="3">← Back</button>
+            <button class="btn-next" data-next="5">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Confirm & Submit -->
+        <div class="step-panel" id="step-5">
+          <div class="step-icon">💝</div>
+          <h2 class="step-title">All set!</h2>
+          <p class="step-desc">Here's our little plan — does everything look good?</p>
+          <div class="confirm-card">
+            <div class="confirm-row">
+              <span class="confirm-label">📍 Location</span>
+              <span class="confirm-value" id="confirm-location">—</span>
+            </div>
+            <div class="confirm-row">
+              <span class="confirm-label">📅 Date</span>
+              <span class="confirm-value" id="confirm-date">—</span>
+            </div>
+            <div class="confirm-row">
+              <span class="confirm-label">🕐 Time</span>
+              <span class="confirm-value" id="confirm-time">—</span>
+            </div>
+            <div class="confirm-row">
+              <span class="confirm-label">🍽 Food</span>
+              <span class="confirm-value" id="confirm-food">—</span>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn-back" data-back="4">← Back</button>
+            <button class="btn-submit" id="btn-submit">Send it! 💌</button>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div class="step-panel" id="step-success">
+          <div class="step-icon success-bounce">🎉</div>
+          <h2 class="step-title">Yay! Can't wait!</h2>
+          <p class="step-desc">Your reply has been sent. See you soon, beautiful! 💕</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Made with 💗 just for you</p>
+    </footer>
+  </main>
+
+  <!-- Hidden form for email -->
+  <form id="email-form" action="https://formsubmit.co/tiennguyen2283@gmail.com" method="POST" hidden>
+    <input type="hidden" name="_subject" value="Birthday Walk Date Request 💕">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="text" name="_honey" style="display:none">
+    <input type="hidden" name="location" id="form-location">
+    <input type="hidden" name="date" id="form-date">
+    <input type="hidden" name="time" id="form-time">
+    <input type="hidden" name="food" id="form-food">
+    <input type="hidden" name="response" value="YES - She said yes to the walk!">
+  </form>
+
+  <script src="script.js"></script>
 </body>
 </html>
