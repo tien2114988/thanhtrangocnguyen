@@ -673,6 +673,17 @@ input[type="time"].form-input::-webkit-calendar-picker-indicator {
   margin-top: 0.5rem;
 }
 
+.note-group {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.note-input {
+  min-height: 96px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
 /* Food grid */
 .food-grid {
   display: grid;

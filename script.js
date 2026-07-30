@@ -15,6 +15,7 @@
   const customLocationInput = document.getElementById('custom-location');
   const dateInput = document.getElementById('date-input');
   const timeInput = document.getElementById('time-input');
+  const noteInput = document.getElementById('note-input');
 
   let currentStep = 1;
   const totalSteps = 5;
@@ -305,6 +306,7 @@
     document.getElementById('form-date').value = formatDate(dateInput.value);
     document.getElementById('form-time').value = formatTime(timeInput.value);
     document.getElementById('form-food').value = getFood();
+    document.getElementById('form-note').value = noteInput.value.trim() || 'No note';
 
     const formData = new FormData(emailForm);
 
