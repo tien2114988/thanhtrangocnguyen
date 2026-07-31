@@ -21,8 +21,29 @@
   const totalSteps = 5;
   let musicPlaying = false;
 
+  function notifyGiftOpened() {
+    const formData = new FormData();
+    formData.append('_subject', 'Someone opened the birthday gift');
+    formData.append('_captcha', 'false');
+    formData.append('_template', 'table');
+    formData.append('event', 'Opened gift');
+    formData.append('opened_at', new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }));
+    formData.append('page', window.location.href);
+    formData.append('device', navigator.userAgent);
+
+    fetch(emailForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: { Accept: 'application/json' },
+      keepalive: true,
+    }).catch(() => {
+      // Keep the gift opening smooth even if the notification email is blocked.
+    });
+  }
+
   // ===== Entry & Music =====
   enterBtn.addEventListener('click', () => {
+    notifyGiftOpened();
     entryOverlay.classList.add('hidden');
     mainContent.hidden = false;
     musicToggle.hidden = false;
