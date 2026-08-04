@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nóc nóc 4-8-2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink-50: #fff5f8;
+      --pink-100: #ffe2ed;
+      --pink-300: #ff9ec2;
+      --pink-500: #f14f93;
+      --pink-700: #bf1d68;
+      --cream: #fffaf4;
+      --ink: #44263a;
+      --muted: #88697b;
+      --shadow: 0 18px 45px rgba(191, 29, 104, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100svh;
+      font-family: "Nunito", system-ui, sans-serif;
+      color: var(--ink);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255, 158, 194, 0.45), transparent 28%),
+        radial-gradient(circle at 82% 28%, rgba(255, 226, 237, 0.8), transparent 30%),
+        linear-gradient(160deg, var(--cream), var(--pink-50) 45%, var(--pink-100));
+    }
+
+    .page {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: max(1rem, env(safe-area-inset-top)) 1rem max(1rem, env(safe-area-inset-bottom));
+      isolation: isolate;
+    }
+
+    .float {
+      position: fixed;
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      opacity: 0.18;
+      animation: bob 5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .float:nth-child(1) { top: 8%; left: 8%; }
+    .float:nth-child(2) { top: 15%; right: 10%; animation-delay: 0.8s; }
+    .float:nth-child(3) { bottom: 12%; left: 14%; animation-delay: 1.6s; }
+    .float:nth-child(4) { bottom: 18%; right: 12%; animation-delay: 2.4s; }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-16px) rotate(7deg); }
+    }
+
+    .gift-card {
+      width: min(100%, 420px);
+      min-height: min(680px, calc(100svh - 2rem));
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 1rem;
+      padding: clamp(1.2rem, 5vw, 2rem);
+      border: 1px solid rgba(255, 158, 194, 0.52);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .intro {
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 3rem;
+      min-height: 3rem;
+      margin-bottom: 0.75rem;
+      border-radius: 999px;
+      background: white;
+      box-shadow: 0 10px 24px rgba(241, 79, 147, 0.2);
+      font-size: 1.55rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 9vw, 3.1rem);
+      line-height: 1.02;
+      color: var(--pink-700);
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 18rem;
+      margin: 0.7rem auto 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .playground {
+      position: relative;
+      min-height: 300px;
+      border-radius: 24px;
+      background:
+        linear-gradient(rgba(255,255,255,0.76), rgba(255,255,255,0.76)),
+        repeating-linear-gradient(45deg, rgba(255, 158, 194, 0.18) 0 10px, transparent 10px 20px);
+      border: 1px dashed rgba(191, 29, 104, 0.22);
+      overflow: hidden;
+    }
+
+    .hint {
+      position: absolute;
+      inset: 1rem 1rem auto;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      pointer-events: none;
+    }
+
+    .open-button {
+      position: absolute;
+      left: 50%;
+      top: 56%;
+      transform: translate(-50%, -50%);
+      min-width: 9.5rem;
+      min-height: 3.5rem;
+      padding: 0.95rem 1.35rem;
+      border: 0;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, var(--pink-500), var(--pink-700));
+      box-shadow: 0 14px 28px rgba(191, 29, 104, 0.28);
+      font: inherit;
+      font-weight: 900;
+      font-size: 1.05rem;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: left 0.22s ease, top 0.22s ease, transform 0.16s ease, box-shadow 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .open-button:active {
+      transform: translate(-50%, -50%) scale(0.96);
+    }
+
+    .open-button.is-caught {
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .troll {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 1.25rem;
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.9);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .troll.is-open {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .troll-box {
+      width: min(100%, 330px);
+      padding: 1.5rem 1.1rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 14px 32px rgba(191, 29, 104, 0.16);
+      border: 1px solid rgba(255, 158, 194, 0.4);
+    }
+
+    .troll-icon {
+      font-size: clamp(3.4rem, 16vw, 5rem);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+      animation: tease 0.8s ease-in-out infinite;
+    }
+
+    @keyframes tease {
+      0%, 100% { transform: rotate(-7deg) scale(1); }
+      50% { transform: rotate(7deg) scale(1.06); }
+    }
+
+    .troll-title {
+      color: var(--pink-700);
+      font-size: clamp(1.6rem, 7vw, 2.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 0.7rem;
+    }
+
+    .troll-message {
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 1.05rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 380px) {
+      .gift-card {
+        min-height: calc(100svh - 1.2rem);
+        padding: 1rem;
+        border-radius: 24px;
+      }
+
+      .playground {
+        min-height: 280px;
+      }
+
+      .open-button {
+        min-width: 8.7rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <span class="float" aria-hidden="true">🎁</span>
+    <span class="float" aria-hidden="true">😝</span>
+    <span class="float" aria-hidden="true">✨</span>
+    <span class="float" aria-hidden="true">💝</span>
+
+    <section class="gift-card" aria-labelledby="page-title">
+      <div class="intro">
+        <div class="badge" aria-hidden="true">🎁</div>
+        <h1 id="page-title">Nọc Nọc</h1>
+        <p class="subtitle">Anh có quà cho Nọc Nọc nèeee.</p>
+      </div>
+
+      <div class="playground" id="playground">
+        <p class="hint" id="hint">Ấn nút “Mở quà” đi nè.</p>
+        <button class="open-button" id="open-button" type="button">Mở quà</button>
+        <div class="troll" id="troll" aria-live="polite">
+          <div class="troll-box">
+            <div class="troll-icon" aria-hidden="true">😝</div>
+            <p class="troll-title">Lêu lêu lêu</p>
+            <p class="troll-message">Lêu lêu lêu bị lừa, nào đi dạo mới nhận được quà nha</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const maxAttempts = 18;
+      const playground = document.getElementById('playground');
+      const button = document.getElementById('open-button');
+      const hint = document.getElementById('hint');
+      const troll = document.getElementById('troll');
+      let attempts = 0;
+      let lastPosition = null;
+
+      const teaseLines = [
+        'Hụt rồi nha.',
+        'Nhanh hơn chút nữa coi.',
+        'Nút chạy hơi mệt nhưng vẫn chạy.',
+        'Gần được rồi đó, chắc vậy.',
+        'Ủa sao vẫn chưa bắt được ta.',
+      ];
+
+      function updateCounter() {
+        hint.textContent = teaseLines[Math.min(teaseLines.length - 1, attempts % teaseLines.length)];
+      }
+
+      function moveButton() {
+        const zone = playground.getBoundingClientRect();
+        const buttonRect = button.getBoundingClientRect();
+        const margin = 18;
+        const minY = 82;
+        const maxX = Math.max(margin, zone.width - buttonRect.width - margin);
+        const maxY = Math.max(minY, zone.height - buttonRect.height - margin);
+        const slots = [
+          [margin, minY],
+          [maxX, minY],
+          [margin, maxY],
+          [maxX, maxY],
+          [zone.width * 0.5 - buttonRect.width * 0.5, minY + 34],
+          [zone.width * 0.5 - buttonRect.width * 0.5, maxY - 34],
+        ].map(([x, y]) => [
+          Math.min(Math.max(margin, x), maxX),
+          Math.min(Math.max(minY, y), maxY),
+        ]);
+
+        const choices = lastPosition
+          ? slots.filter(([x, y]) => Math.hypot(x - lastPosition.x, y - lastPosition.y) > 56)
+          : slots;
+        const pick = choices[Math.floor(Math.random() * choices.length)] || slots[0];
+        lastPosition = { x: pick[0], y: pick[1] };
+
+        button.style.left = `${pick[0] + buttonRect.width / 2}px`;
+        button.style.top = `${pick[1] + buttonRect.height / 2}px`;
+      }
+
+      function openTroll() {
+        button.classList.add('is-caught');
+        troll.classList.add('is-open');
+        hint.textContent = 'Quà mở rồi, nhưng mà...';
+      }
+
+      button.addEventListener('click', () => {
+        attempts += 1;
+
+        if (attempts >= maxAttempts) {
+          openTroll();
+          return;
+        }
+
+        updateCounter();
+        moveButton();
+      });
+    })();
+  </script>
+</body>
+</html>
